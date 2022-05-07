@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { gun } from './initGun';
+	import { gun, Todo } from './initGun';
 
 	let title = '';
 
@@ -7,14 +7,13 @@
 		gun.get('todos').get(title).put({ title, done: false });
 		title = '';
 	}
-	function removeTodo(key) {
+	function removeTodo(key: string) {
 		gun.get('todos').get(key).put(null);
 	}
-	function updateTodo(key, value) {
-		gun.get('todos').get(key).get('done').put(value);
+	function updateTodo(key: string, todo: Partial<Todo>) {
+		gun.get('todos').get(key).put(todo);
 	}
 
-	type Todo = { title: string; done: boolean };
 	let store: Record<string, Todo> = {};
 	gun
 		.get('todos')
@@ -44,7 +43,12 @@
 <ul>
 	{#each todos as [key, { title, done }] (key)}
 		<li>
-			<input id={key} type="checkbox" checked={done} on:change={() => updateTodo(key, !done)} />
+			<input
+				id={key}
+				type="checkbox"
+				checked={done}
+				on:change={() => updateTodo(key, { done: !done })}
+			/>
 			<label for={key}>{title} </label>
 			<a href="/" on:click|preventDefault={() => removeTodo(key)}>remove</a>
 		</li>
