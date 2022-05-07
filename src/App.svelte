@@ -1,41 +1,52 @@
 <script lang="ts">
-	import Gun from 'gun/gun';
-	import 'gun/sea';
+	import { gun } from './initGun';
 
-	// Connect GUN to other peers in network.
-	let gun = Gun(['http://localhost:8765/gun', 'https://gun-manhattan.herokuapp.com/gun']);
+	let title = '';
 
-	// Handle user registration and login
-	let user = gun.user();
-
-	let username: string, password: string;
-
-	function signUp() {
-		user.create(username, password, () => {});
+	function addTodo() {
+		gun.get('todos').get(title).put({ title, done: false });
+		title = '';
+	}
+	function removeTodo(key) {
+		gun.get('todos').get(key).put(null);
+	}
+	function updateTodo(key, value) {
+		gun.get('todos').get(key).get('done').put(value);
 	}
 
-	function signIn() {
-		user.auth(username, password);
-	}
+	type Todo = { title: string; done: boolean };
+	let store: Record<string, Todo> = {};
+	gun
+		.get('todos')
+		.map()
+		.on((data, key) => {
+			if (data) {
+				store[key] = data;
+			} else {
+				// gun.map() can return null (deleted) values for keys
+				// if so, this else clause will update your local variable
+				delete store[key];
+				store = store;
+			}
+		});
+	// Create array from store so we can iterate
+	$: todos = Object.entries(store);
 </script>
 
 <h1>Todo</h1>
 
-<hr />
-<form>
-	<input bind:value={username} type="text" placeholder="username" />
-	<input bind:value={password} type="password" placeholder="password" />
+<form on:submit|preventDefault={addTodo}>
+	<input placeholder="Add todo" bind:value={title} />
 
-	<input type="submit" value="sign in" on:click|preventDefault={signIn} />
-	<input type="button" value="sign up" on:click={signUp} />
+	<button>Add</button>
 </form>
-<hr />
 
-<ul />
-
-<hr />
-<form id="said">
-	<input id="say" />
-	<input id="speak" type="submit" value="speak" />
-</form>
-<hr />
+<ul>
+	{#each todos as [key, { title, done }] (key)}
+		<li>
+			<input id={key} type="checkbox" checked={done} on:change={() => updateTodo(key, !done)} />
+			<label for={key}>{title} </label>
+			<a href="/" on:click|preventDefault={() => removeTodo(key)}>remove</a>
+		</li>
+	{/each}
+</ul>
