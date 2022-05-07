@@ -11,7 +11,7 @@
 	let username: string, password: string;
 
 	function signUp() {
-		user.create(username, password, () => {		});
+		user.create(username, password, () => {});
 	}
 
 	function signIn() {
