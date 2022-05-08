@@ -1,3 +1,21 @@
+import Gun from 'gun/gun'
+import 'gun/sea'
+
+type Todo = {
+  title: string
+  done: boolean
+}
+
+interface AppState extends Record<string, GunSchema> {
+  todos: Record<string, Todo>
+}
+
+const gun = Gun<AppState>([
+  // Run pnpm start:gun to start a local gun node
+  'localhost:8765/gun',
+  'https://gun-manhattan.herokuapp.com/gun',
+])
+
 import type {
   GunSchema,
   GunValueSimple,
@@ -6,7 +24,6 @@ import type {
   LEXQuery,
 } from 'gun'
 import { writable } from 'svelte/store'
-import { gun } from './initGun'
 
 function createMapStore<
   AppState extends Record<string, GunSchema>,
