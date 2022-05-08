@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user, Todo } from './initGun';
+	import { Todo, user } from '../lib/initGun';
 
 	let title = '';
 

@@ -1,8 +1,8 @@
 <script>
-	import { gun } from './initGun';
+	import { gun } from './lib/initGun';
 
-	import Auth from './Auth.svelte';
-	import ToDos from './ToDos.svelte';
+	import Auth from './pages/Auth.svelte';
+	import ToDos from './pages/ToDos.svelte';
 
 	let isLoggedIn = false;
 

@@ -1,5 +1,5 @@
 <script>
-	import { user } from './initGun';
+	import { user } from '../lib/initGun';
 
 	let alias, pass;
 	function signUp() {
