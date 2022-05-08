@@ -2,7 +2,7 @@
 	import { gun } from './initGun';
 
 	import Auth from './Auth.svelte';
-	import Todos from './Todos.svelte';
+	import ToDos from './ToDos.svelte';
 
 	let isLoggedIn = false;
 
@@ -13,7 +13,7 @@
 
 <main>
 	{#if isLoggedIn}
-		<Todos />
+		<ToDos />
 	{:else}
 		<Auth />
 	{/if}

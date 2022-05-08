@@ -3,7 +3,7 @@
 
 	let title = '';
 
-	function addTodo() {
+	function addToDo() {
 		if (!user.is) {
 			alert('You must be logged in to add a todo');
 			return;
@@ -34,20 +34,20 @@
 			}
 		});
 	// Create array from store so we can iterate
-	$: todos = Object.entries(store);
+	$: toDos = Object.entries(store);
 </script>
 
 <div>
-	<h1>Todos</h1>
+	<h1>To-dos</h1>
 
-	<form on:submit|preventDefault={addTodo}>
+	<form on:submit|preventDefault={addToDo}>
 		<input placeholder="Add todo" bind:value={title} />
 
 		<button>Add</button>
 	</form>
 
 	<ul>
-		{#each todos as [key, { title, done }] (key)}
+		{#each toDos as [key, { title, done }] (key)}
 			<li>
 				<input
 					id={key}
