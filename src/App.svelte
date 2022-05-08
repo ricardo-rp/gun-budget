@@ -1,7 +1,7 @@
 <script>
   import { gun } from './lib/initGun'
 
-  import Auth from './pages/Auth.svelte'
+  import AuthForm from './pages/AuthForm.svelte'
   import ToDos from './pages/ToDos.svelte'
 
   let isLoggedIn = false
@@ -15,7 +15,7 @@
   {#if isLoggedIn}
     <ToDos />
   {:else}
-    <Auth />
+    <AuthForm />
   {/if}
 </main>
 
