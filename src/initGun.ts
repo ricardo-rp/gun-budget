@@ -16,3 +16,5 @@ export const gun = Gun<AppState>([
 	'localhost:8765/gun',
 	'https://gun-manhattan.herokuapp.com/gun'
 ]);
+
+export const user = gun.user<AppState>();

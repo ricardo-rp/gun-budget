@@ -1,7 +1,5 @@
 <script>
-	import { gun } from './initGun';
-
-	let user = gun.user();
+	import { user } from './initGun';
 
 	let alias, pass;
 	function signUp() {
@@ -13,8 +11,11 @@
 </script>
 
 <form on:submit|preventDefault={signin}>
-	<input placeholder="alias" />
-	<input type="password" placeholder="pass" />
+	<h1>Auth</h1>
+
+	<input bind:value={alias} placeholder="alias" />
+	<input bind:value={pass} type="password" placeholder="pass" />
+
 	<input type="submit" value="sign in" />
 	<input type="button" value="sign up" on:click={signUp} />
 </form>
