@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { user } from '../lib/initGun'
+  import { user } from '../lib/db/initGun'
 
   let alias: string, pass: string, error: string
   function signUp() {

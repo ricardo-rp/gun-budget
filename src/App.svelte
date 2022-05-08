@@ -1,5 +1,5 @@
 <script>
-  import { gun } from './lib/initGun'
+  import { gun } from './lib/db/initGun'
 
   import AuthForm from './pages/AuthForm.svelte'
   import ToDos from './pages/ToDos.svelte'

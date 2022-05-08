@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Todo, user } from '../lib/initGun'
+  import { Todo, user } from '../lib/db/initGun'
 
   export let signOut: () => void
 
