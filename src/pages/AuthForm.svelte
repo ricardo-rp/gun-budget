@@ -5,14 +5,12 @@
   function signUp() {
     user.create(alias, pass, (ack) => {
       if (handleAuthError(ack)) return
-      alert('Account created!')
       signIn()
     })
   }
   function signIn() {
     user.auth(alias, pass, (ack) => {
       if (handleAuthError(ack)) return
-      alert(`Welcome, ${alias}!`)
     })
   }
 

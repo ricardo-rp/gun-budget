@@ -1,13 +1,11 @@
 <script lang="ts">
   import { Todo, user } from '../lib/initGun'
 
+  export let signOut: () => void
+
   let title = ''
 
   function addToDo() {
-    if (!user.is) {
-      return alert('You must be logged in to add a todo')
-    }
-
     user.get('todos').get(title).put({ title, done: false })
     title = ''
   }
@@ -60,3 +58,5 @@
     {/each}
   </ul>
 </div>
+
+<a href="/" on:click|preventDefault={signOut}>Sign-out</a>

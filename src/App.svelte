@@ -4,16 +4,26 @@
   import AuthForm from './pages/AuthForm.svelte'
   import ToDos from './pages/ToDos.svelte'
 
-  let isLoggedIn = false
+  let isSignedIn = false
 
   gun.on('auth', () => {
-    isLoggedIn = true
+    isSignedIn = true
   })
+
+  function signOut() {
+    try {
+      user.leave()
+    } catch (e) {
+      console.error(e)
+    } finally {
+      isSignedIn = false
+    }
+  }
 </script>
 
 <main>
-  {#if isLoggedIn}
-    <ToDos />
+  {#if isSignedIn}
+    <ToDos {signOut} />
   {:else}
     <AuthForm />
   {/if}
