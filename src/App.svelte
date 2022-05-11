@@ -25,8 +25,8 @@
 
 {#key isSignedIn}
   <main
-    in:fly={{ y: -50, duration: 250, delay: 300 }}
-    out:fly={{ y: 50, duration: 250 }}
+    in:fly={{ y: -300, duration: 600, delay: 300 }}
+    out:fly={{ y: 300, duration: 300 }}
   >
     {#if isSignedIn}
       <ToDos {signOut} />
