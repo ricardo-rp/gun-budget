@@ -9,4 +9,4 @@ export const gun = Gun<AppState>([
   'https://gun-manhattan.herokuapp.com/gun',
 ])
 
-export const user = gun.user<AppState>()
+export const user = gun.user<AppState>().recall({ sessionStorage: true })
