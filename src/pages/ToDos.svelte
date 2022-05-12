@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Todo, user } from '../lib/db/initGun'
+  import { user } from '../lib/db/initGun'
+  import type { Todo } from '../lib/db/schema'
 
   export let signOut: () => void
 
@@ -60,3 +61,13 @@
 </div>
 
 <a href="/" on:click|preventDefault={signOut}>Sign-out</a>
+
+<style>
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+</style>
