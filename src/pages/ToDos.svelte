@@ -2,6 +2,8 @@
   import { user } from '../lib/db/initGun'
   import type { Todo } from '../lib/db/schema'
 
+  import { slide } from 'svelte/transition'
+
   export let signOut: () => void
 
   let title = ''
@@ -45,29 +47,49 @@
   </form>
 
   <ul>
-    {#each toDos as [key, { title, done }] (key)}
-      <li>
-        <input
-          id={key}
-          type="checkbox"
-          checked={done}
-          on:change={() => updateTodo(key, { done: !done })}
-        />
-        <label for={key}>{title}</label>
-        <a href="/" on:click|preventDefault={() => removeTodo(key)}>remove</a>
+    {#if toDos.length}
+      {#each toDos as [key, { title, done }] (key)}
+        <li transition:slide>
+          <label for={key}>
+            <input
+              id={key}
+              type="checkbox"
+              checked={done}
+              on:change={() => updateTodo(key, { done: !done })}
+            />
+            {title}
+          </label>
+
+          <a href="/" on:click|preventDefault={() => removeTodo(key)}>remove</a>
+        </li>
+      {/each}
+    {:else}
+      <li transition:slide style="justify-content: center;">
+        <em>Add some to-dos above</em>
       </li>
-    {/each}
+    {/if}
   </ul>
 </div>
 
 <a href="/" on:click|preventDefault={signOut}>Sign-out</a>
 
 <style>
+  div {
+    min-width: 14rem;
+    display: grid;
+  }
+  form {
+    display: grid;
+  }
+  form > * {
+    margin-right: 0;
+  }
   ul {
     padding: 0;
   }
-
   li {
     list-style-type: none;
+    display: flex;
+    justify-content: space-between;
   }
 </style>

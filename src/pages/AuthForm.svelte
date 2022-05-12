@@ -1,5 +1,6 @@
 <script lang="ts">
   import { user } from '../lib/db/initGun'
+  import { slide } from 'svelte/transition'
 
   let alias: string, pass: string, error: string
   function signUp() {
@@ -32,8 +33,25 @@
   <input type="button" value="sign up" on:click={signUp} />
 
   {#if error}
-    <strong>
-      Error: <i>{error}</i>
+    <strong transition:slide>
+      Error:
+      <div class="error-message">
+        {#key error}
+          <i transition:slide>{error}</i>
+        {/key}
+      </div>
     </strong>
   {/if}
 </form>
+
+<style>
+  form {
+    display: grid;
+    min-width: 14rem;
+  }
+
+  .error-message {
+    display: inline-flex;
+    flex-direction: column;
+  }
+</style>
